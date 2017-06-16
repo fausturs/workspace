@@ -8,11 +8,11 @@ optimization_level=-O3
 #include_path=
 #link_path=
 
-./bin/$(target_file) : ./src/$(file_name).cpp ./bin ../tools/Timer.o
+./bin/$(target_file).out: ./src/$(file_name).cpp ./bin ../tools/Timer.o
 	$(cpp_compiler) $(cpp_version) $(optimization_level) \
 	./src/$(file_name).cpp \
 	../tools/Timer.o \
-	-o ./bin/$(target_file)
+	-o ./bin/$(target_file).out
 
 ./bin:
 	mkdir bin
@@ -24,4 +24,4 @@ optimization_level=-O3
 
 clean:
 	#clean rm ./bin/*.o
-	rm ./bin/$(target_file)
+	rm ./bin/$(target_file).out
