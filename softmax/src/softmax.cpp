@@ -40,7 +40,7 @@ public:
 	size_t label_num;
 	double init_learning_rate;
 	double norm_weight;
-	Softmax(size_t label_num, double norm_weight = 0.0, double init_learning_rate = 0.1):theta{},feature_num{0}
+	Softmax(size_t label_num, double norm_weight = 0.0, double init_learning_rate = 0.5):theta{},feature_num{0}
 	{
 		this->label_num = label_num;
 		this->init_learning_rate = init_learning_rate;
@@ -84,14 +84,14 @@ public:
 		std::cout<<"epoch\t\ttime_ms\t\tloss\n";
 		wjy::Timer timer;
 		timer.start();
-		for (int epoch=0;epoch<epoch_num;epoch++)
+		for (size_t epoch=0;epoch<epoch_num;epoch++)
 		{
 			timer.end();
 			std::cout<<epoch<<"\t\t"<<timer.get_duration_ms()<<"\t\t"<<get_loss(data, labels)<<"\n";
 			//每个epoch迭代次数是iter_num，默认是1
-			for (int iter=0;iter<iter_num;iter++)
+			for (size_t iter=0;iter<iter_num;iter++)
 			{
-				for (int j=0;j<theta.size();j++)
+				for (size_t j=0;j<theta.size();j++)
 				{
 					//计算梯度
 					gradient = theta[j]*norm_weight;
@@ -115,10 +115,10 @@ public:
 	void test(const Data_tp& data, const Label_tp& labels )
 	{
 		size_t cnt=0, n=data.size();
-		for (int i=0;i<n;i++)
+		for (size_t i=0;i<n;i++)
 		{
 			double p = probability(data[i], labels[i]);
-			for (int l = 0;l<label_num;l++)
+			for (size_t l = 0;l<label_num;l++)
 			{
 				if (l!=labels[i] && probability(data[i], l)>p)
 				{
@@ -169,7 +169,12 @@ int main()
 		for (auto & y : x) y = y/255.0;
 
 	Softmax sm(10, 1);
-	
-	sm.train(train_data, train_labels, 20);
+	std::cout<<"训练数据集大小:"<<train_data.size()<<"\n";
+	sm.train(train_data, train_labels, 10);
+
+	std::cout<<"训练数据集上的";
+	sm.test(train_data, train_labels);
+	std::cout<<"测试数据集上的";
+	sm.test(test_data, test_labels);
 	return 0;
 }
