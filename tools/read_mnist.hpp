@@ -22,7 +22,7 @@ T reverse_by_byte(T x, int bits_num = 32)
 }
 
 //T类型应该是一个支持resize和中括号访问符的类型
-//比较理想的是valarry array 或者 vector
+//比较理想的是valarray array 或者 vector
 template<class T>
 T read_mnist_label_file(std::string file_name)
 {
