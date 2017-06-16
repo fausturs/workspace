@@ -137,7 +137,7 @@ public:
 		double loss = 0.0;
 		for (auto& theta_i : theta)
 		{
-			parameter_vector_type theta_i_2 = std::pow(theta_i, 2);
+			parameter_vector_type theta_i_2 = std::pow(theta_i, 2.0);
 			loss += std::accumulate(std::begin(theta_i_2), std::end(theta_i_2), 0.0);
 		}
 		loss = loss * norm_weight / 2.0;
