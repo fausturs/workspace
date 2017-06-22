@@ -176,5 +176,6 @@ int main()
 	sm.test(train_data, train_labels);
 	std::cout<<"测试数据集上的";
 	sm.test(test_data, test_labels);
+
 	return 0;
 }
